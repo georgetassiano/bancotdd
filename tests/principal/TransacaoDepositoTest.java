@@ -2,9 +2,9 @@ package principal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
@@ -13,26 +13,25 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.expectThrows;
 
-@RunWith(MockitoJUnitRunner.StrictStubs.class)
-class TransacaoDepositoTest {
+public class TransacaoDepositoTest {
 	
 	@Mock
 	private ContaDAO contaDAO;
 	private TransacaoDeposito deposito;
 
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		deposito = new TransacaoDeposito(100.0, 12345, 123456, contaDAO);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		deposito = null;
 	}
 
 	@Test
-	void deveRetornarExcercaoSeAContaNaoExistir() {
+	public void deveRetornarExcercaoSeAContaNaoExistir() {
 		
 		//define que a interface irá retornar uma excerção quando fizer um getConta para 0, 0
 		when(contaDAO.getConta(0, 0))
@@ -55,7 +54,7 @@ class TransacaoDepositoTest {
 	}
 	
 	@Test
-	void deveAdicionarOValorNoSaldoDaConta() {
+	public void deveAdicionarOValorNoSaldoDaConta() {
 		
 		//cria um mock de chamadas ordenadas
 		InOrder inOrder = inOrder(contaDAO);

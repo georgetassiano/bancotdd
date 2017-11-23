@@ -1,26 +1,27 @@
 package principal;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
-class ClienteTest {
+
+public class ClienteTest {
 
 	private Cliente cliente;
 	
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		cliente = new Cliente("George", new Conta(0.0, 12345, 123456));
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		cliente = null;
 	}
 
 	@Test
-	void deveRetornarSaldoAtualDaContaDoCliente() {
+	public void deveRetornarSaldoAtualDaContaDoCliente() {
 		
 		//executa o metodo de ver saldo
 		double saldoAtual = cliente.verSaldo();

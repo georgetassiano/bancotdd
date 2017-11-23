@@ -7,9 +7,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.expectThrows;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,19 +20,19 @@ public class TransacaoTransferenciaTest {
 	private ContaDAO contaDAO;
 	private TransacaoTransferencia transferencia;
 
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		transferencia = new TransacaoTransferencia(100.0, 12345, 123456, 23456, 234567, contaDAO);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		transferencia = null;
 	}
 
 	@Test
-	void deveRetornarExcercaoSeAContaDestinoNaoExistir() {
+	public void deveRetornarExcercaoSeAContaDestinoNaoExistir() {
 		
 		//define que a interface irá retornar uma excerção quando fizer um getConta para 0, 0
 		when(contaDAO.getConta(0, 0))
@@ -55,7 +55,7 @@ public class TransacaoTransferenciaTest {
 	}
 	
 	@Test
-	void deveRetornarExcercaoSeOSaldoDoRemetenteForMenorQueOValor() {
+	public void deveRetornarExcercaoSeOSaldoDoRemetenteForMenorQueOValor() {
 		
 		//define que ao fazer um getConta para 12345, 123456 irá retornar uma conta com saldo vazio
 		when(contaDAO.getConta(12345, 123456))
@@ -75,7 +75,7 @@ public class TransacaoTransferenciaTest {
 	}
 	
 	@Test
-	void deveFazerAtransferenciaDoValorDoRemetenteParaODestinatario() {
+	public void deveFazerAtransferenciaDoValorDoRemetenteParaODestinatario() {
 		
 		//cria um mock de chamadas ordenadas
 		InOrder inOrder = inOrder(contaDAO);

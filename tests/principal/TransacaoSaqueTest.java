@@ -7,9 +7,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.expectThrows;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,19 +20,19 @@ public class TransacaoSaqueTest {
 	private ContaDAO contaDAO;
 	private TransacaoSaque saque;
 
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		saque = new TransacaoSaque(100.0, 12345, 123456, contaDAO);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		saque = null;
 	}
 
 	@Test
-	void deveRetornarExcercaoSeOSaldoForMenorQueOValor() {
+	public void deveRetornarExcercaoSeOSaldoForMenorQueOValor() {
 		
 		//define que ao fazer um getConta para 12345, 123456 irá retornar uma conta com saldo vazio
 		when(contaDAO.getConta(12345, 123456))
@@ -55,7 +55,7 @@ public class TransacaoSaqueTest {
 	}
 	
 	@Test
-	void deveRetirarOValorNoSaldoDaConta() {
+	public void deveRetirarOValorNoSaldoDaConta() {
 		
 		//cria um mock de chamadas ordenadas
 		InOrder inOrder = inOrder(contaDAO);
