@@ -5,13 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.expectThrows;
 
 public class TransacaoDepositoTest {
 	
@@ -38,8 +35,8 @@ public class TransacaoDepositoTest {
 		.thenThrow(new IllegalArgumentException("Não há uma conta com o número da conta e/ou agência informados"));
 		
 		//realiza o teste de verificação se ao executar o processarTransacao irá gerar a excerção especificada
-		Throwable exception = expectThrows(IllegalArgumentException.class, () -> {
-		      new TransacaoDeposito(100.0, 0, 0, contaDAO).prepararTransacao();
+		Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+		      new TransacaoDeposito(100.0, 0, 0, contaDAO).verificarContaDestino();
 		    });
 		
 		//verifica se o metodo getConta foi chamado da interface contaDAO
@@ -66,11 +63,8 @@ public class TransacaoDepositoTest {
 		//define que um método que irá atualizar o valor da conta para 100.0
 		contaDAO.setSaldo(100.0, 12345, 123456);
 		
-		//executa o metodo da preparação da transacao
-	    deposito.prepararTransacao();
-		
-		//executa o metodo da transacao
-		deposito.processarTransacao();
+		//executa o metodo da preparação da transacao e a processa
+	    deposito.verificarContaDestino().processarTransacao();
 		
 		//verifica se os metodos foram chamadas e executadas nessa ordem
 		inOrder.verify(contaDAO).getConta(12345, 123456);

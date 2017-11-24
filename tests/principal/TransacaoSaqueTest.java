@@ -1,11 +1,6 @@
 package principal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.testng.Assert.expectThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +8,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
 
 public class TransacaoSaqueTest {
 	
@@ -39,8 +35,8 @@ public class TransacaoSaqueTest {
 		.thenReturn(new Conta(0.0, 12345, 123456));
 		
 		//realiza o teste de verificação se ao executar o processarTransacao irá gerar a excerção especificada
-		Throwable exception = expectThrows(IllegalArgumentException.class, () -> {
-		      new TransacaoSaque(100.0, 12345, 123456, contaDAO).prepararTransacao().processarTransacao();
+		Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+		      new TransacaoSaque(100.0, 12345, 123456, contaDAO).verificarContaDestino().processarTransacao();
 		    });
 		
 		//verifica se o metodo getConta foi chamado da interface contaDAO
@@ -67,11 +63,8 @@ public class TransacaoSaqueTest {
 		//define que um método que irá atualizar o valor da conta para 0.0
 		contaDAO.setSaldo(0.0, 12345, 123456);
 		
-		//executa o metodo da preparação da transacao
-	    saque.prepararTransacao();
-		
-		//executa o metodo da transacao
-		saque.processarTransacao();
+		//executa o metodo da preparação da transacao e a processa
+	    saque.verificarContaDestino().processarTransacao();
 		
 		//verifica se os metodos foram chamadas e executadas nessa ordem
 		inOrder.verify(contaDAO).getConta(12345, 123456);

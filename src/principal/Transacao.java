@@ -18,7 +18,7 @@ public abstract class Transacao {
 	
 	public abstract void processarTransacao();
 	
-	public Transacao prepararTransacao() throws IllegalArgumentException {
+	public Transacao verificarContaDestino() throws IllegalArgumentException {
 		
 			this.contaAlvo = this.contaDAO.getConta(numeroContaAlvo, numeroAgenciaAlvo);
 			
