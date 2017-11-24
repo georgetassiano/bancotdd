@@ -8,6 +8,5 @@
 	<classpathentry kind="lib" path="D:/Downloads/byte-buddy-agent-1.7.9.jar"/>
 	<classpathentry kind="lib" path="D:/Downloads/mockito-core-2.12.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
